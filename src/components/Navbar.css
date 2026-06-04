@@ -1,0 +1,582 @@
+/**
+ * Navbar.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Estilos da Navbar premium — tema dark SaaS.
+ * Organização:
+ *   1. Tokens (variáveis CSS)
+ *   2. Reset local
+ *   3. Navbar wrapper
+ *   4. Logo
+ *   5. Menu desktop
+ *   6. Ações (search, bell, avatar)
+ *   7. Hamburger
+ *   8. Sidebar mobile + overlay
+ *   9. Responsividade
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── 1. Tokens ──────────────────────────────────────────────────────────────── */
+:root {
+  /* Paleta base */
+  --clr-bg-deep:      #0B0B0D;         /* fundo do dashboard */
+  --clr-surface:      #121213;         /* cards */
+  --clr-nav-bg:       rgba(12, 12, 14, 0.72); /* glassmorphism */
+  --clr-border:       rgba(255, 255, 255, 0.07);
+  --clr-border-light: rgba(255, 255, 255, 0.12);
+
+  /* Texto */
+  --clr-text-primary:   rgba(255, 255, 255, 0.92);
+  --clr-text-secondary: rgba(255, 255, 255, 0.42);
+  --clr-text-muted:     rgba(255, 255, 255, 0.24);
+
+  /* Tipografia */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-nav: 0.8125rem;   /* 13px */
+  --font-size-sm:  0.75rem;     /* 12px */
+  --font-tracking-wide: 0.01em;
+
+  /* Dimensões */
+  --nav-height:      74px;
+  --nav-h-pad:       28px;
+  --nav-blur:        20px;
+  --sidebar-width:   280px;
+  --radius-sm:       8px;
+  --radius-md:       12px;
+  --radius-full:     9999px;
+
+  /* Transições */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+}
+
+/* ── 2. Reset local ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a,
+button {
+  cursor: pointer;
+  text-decoration: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 1.5px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── 3. Navbar wrapper ──────────────────────────────────────────────────────── */
+
+/*
+ * Posicionado fixo no topo.
+ * Glassmorphism: backdrop-filter + fundo semi-transparente + borda inferior.
+ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+
+  /* Glassmorphism sutil */
+  background: var(--clr-nav-bg);
+  backdrop-filter: blur(var(--nav-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(160%);
+
+  /* Borda inferior discreta */
+  border-bottom: 1px solid var(--clr-border);
+}
+
+/* Container interno — distribui os três blocos */
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--nav-h-pad);
+  gap: 16px;
+}
+
+/* ── 4. Logo ────────────────────────────────────────────────────────────────── */
+
+/*
+ * Exibe ícone geométrico + nome da aplicação.
+ * color: inherit evita link azul padrão.
+ */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--clr-text-primary);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.nav-logo img{
+    width: 40px;
+    
+}
+
+
+.nav-logo__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-logo__name {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;       /* 14px */
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--clr-text-primary);
+}
+
+/* ── 5. Menu desktop ────────────────────────────────────────────────────────── */
+
+/* Centro do flex — ocupa espaço disponível e centraliza */
+.navbar__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Lista horizontal de itens */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-menu__item {
+  position: relative;
+}
+
+/*
+ * Link do menu:
+ * - padding generoso para área clicável confortável
+ * - position relative para os pseudo-elementos de underline/glow
+ */
+.nav-menu__link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  color: var(--clr-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-nav);
+  font-weight: 450;
+  letter-spacing: var(--font-tracking-wide);
+  transition: color var(--duration-base) var(--ease-out-expo);
+}
+
+/* Estado ativo */
+.nav-menu__link--active {
+  color: var(--clr-text-primary);
+}
+
+/* Hover: clareia o texto */
+.nav-menu__link:hover {
+  color: var(--clr-text-primary);
+}
+
+/* Label do item */
+.nav-menu__label {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/*
+ * Underline branco que surge no hover.
+ * scaleX é controlado pelo Framer Motion (via variants).
+ * transform-origin: center para crescer do meio.
+ */
+.nav-menu__underline {
+  position: absolute;
+  bottom: 1px;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: var(--radius-full);
+  transform-origin: center;
+  /* scaleX gerenciado pelo Framer */
+}
+
+/*
+ * Brilho sutil atrás do texto — círculo radial.
+ * opacity gerenciada pelo Framer.
+ */
+.nav-menu__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
+/* ── 6. Ações (direita) ─────────────────────────────────────────────────────── */
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Divisor vertical fino entre ações e avatar */
+.navbar__divider {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: var(--clr-border-light);
+  margin: 0 4px;
+}
+
+/* ── Botão genérico de ícone ── */
+.nav-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-secondary);
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.nav-icon-btn:hover {
+  color: var(--clr-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Search ── */
+.nav-search {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  /* largura controlada por Framer Motion */
+}
+
+.nav-search__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: var(--clr-text-secondary);
+  transition: color var(--duration-fast) ease;
+}
+
+.nav-search__icon-btn:hover {
+  color: var(--clr-text-primary);
+}
+
+.nav-search__input {
+  flex: 1;
+  height: 100%;
+  padding-right: 10px;
+  background: transparent;
+  border: none;
+  color: var(--clr-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-nav);
+  caret-color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-search__input::placeholder {
+  color: var(--clr-text-muted);
+}
+
+/* ── Notificações (badge) ── */
+.nav-bell__badge {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  /* ring sutil */
+  box-shadow: 0 0 0 1.5px var(--clr-bg-deep);
+}
+
+/* Precisamos que o botão de sino tenha position relative */
+.nav-icon-btn {
+  position: relative;
+}
+
+/* ── Avatar ── */
+.nav-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  transition:
+    border-color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.nav-avatar:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.nav-avatar__initials {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+/* ── 7. Hamburger (mobile only) ─────────────────────────────────────────────── */
+
+/*
+ * Oculto no desktop; visível em telas menores via media query.
+ */
+.nav-hamburger {
+  display: none;         /* mostrado no breakpoint mobile */
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-secondary);
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+
+.nav-hamburger:hover {
+  color: var(--clr-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── 8. Sidebar mobile + overlay ────────────────────────────────────────────── */
+
+/*
+ * Overlay escurece o conteúdo por baixo da sidebar.
+ */
+.nav-sidebar__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/*
+ * Drawer lateral — desliza da direita.
+ * Glassmorphism mais intenso que a navbar (sidebar é destacada).
+ */
+.nav-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 120;
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(13, 13, 15, 0.95);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-left: 1px solid var(--clr-border);
+}
+
+/* Header da sidebar — logo + botão fechar */
+.nav-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  height: var(--nav-height);
+}
+
+/* Divisor horizontal */
+.nav-sidebar__divider {
+  height: 1px;
+  background: var(--clr-border);
+  margin: 16px 20px;
+}
+
+/* Lista de navegação da sidebar */
+.nav-sidebar__nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px;
+}
+
+.nav-sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/*
+ * Botão de link na sidebar:
+ * - row com ícone + label + chevron
+ * - background sutil no hover / active
+ */
+.nav-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--clr-text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-nav);
+  font-weight: 450;
+  letter-spacing: var(--font-tracking-wide);
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.nav-sidebar__link:hover {
+  color: var(--clr-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-sidebar__link--active {
+  color: var(--clr-text-primary);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-sidebar__link-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.nav-sidebar__link--active .nav-sidebar__link-icon,
+.nav-sidebar__link:hover .nav-sidebar__link-icon {
+  opacity: 1;
+}
+
+.nav-sidebar__link-label {
+  flex: 1;
+  text-align: left;
+}
+
+.nav-sidebar__chevron {
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.nav-sidebar__link:hover .nav-sidebar__chevron,
+.nav-sidebar__link--active .nav-sidebar__chevron {
+  opacity: 0.35;
+}
+
+/* Footer da sidebar — avatar + info do usuário */
+.nav-sidebar__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 28px;
+  border-top: 1px solid var(--clr-border);
+  margin-top: auto;
+}
+
+.nav-sidebar__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-sidebar__user-name {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-nav);
+  font-weight: 500;
+  color: var(--clr-text-primary);
+}
+
+.nav-sidebar__user-role {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--clr-text-muted);
+}
+
+
+@media (max-width: 900px) {
+  :root {
+    --nav-h-pad: 20px;
+  }
+
+  .nav-menu__link {
+    padding: 6px 10px;
+  }
+}
+
+/*
+ * Mobile (≤ 680px):
+ * Oculta menu central e ações de pesquisa/sino/avatar.
+ * Exibe o botão hamburger.
+ */
+@media (max-width: 680px) {
+  .navbar__center,
+  .navbar__right {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+}
+
+/*
+ * Telas muito pequenas (≤ 380px):
+ * Ajusta largura da sidebar para ocupar quase toda a tela.
+ */
+@media (max-width: 380px) {
+  :root {
+    --sidebar-width: calc(100vw - 48px);
+  }
+}
