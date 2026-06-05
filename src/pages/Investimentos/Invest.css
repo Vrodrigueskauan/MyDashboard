@@ -1,0 +1,138 @@
+.invest {
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+    background: #121213;
+}
+
+.invest-section {
+    width: 100%;
+}
+
+.invest-header {
+    margin-bottom: 24px;
+   
+}
+
+.invest-header span {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #9e9e9e;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.invest-header h1 {
+    margin: 0;
+    color: #f7f7f7;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.invest-header p {
+    margin-top: 8px;
+    max-width: 600px;
+    color: #b5b5b5;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
+.invest-main-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.grafico-invest,
+.grafico-invest-second,
+.grafico-secundario-item {
+    border: 1px solid rgba(247, 247, 247, 0.15);
+    border-radius: 12px;
+
+    background-color: #0e0e0e;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+
+    background-size: 24px 24px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.grafico-invest{
+    position: relative;
+    width: 50%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#add{
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+
+#add:hover{
+    scale: 1.02;
+}
+
+#add svg{
+    transition: all 1s ease;
+
+}
+
+#add svg:hover{
+    rotate: 360deg;
+}
+
+.invest-second-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.grafico-invest-second{
+    position: relative;
+    width: 50%;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+   display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+
+}
+
+.title h3{
+    margin: 0;
+    color: #f7f7f7;
+}
+
+
+.subgrafico{
+    height: 150px;
+    width: 100%;
+    margin: 0;
+   
+}
+
+

@@ -1,4 +1,4 @@
-import react from 'React';
+
 import Chart from 'chart.js/auto';
 import React, { useEffect, useRef } from 'react';
 import Navbar from '../../components/Navbar';
@@ -21,29 +21,46 @@ export default function Home() {
 
     useEffect(() => {
         const chart = new Chart(chartRef.current, {
-            type: 'line',
-            data: {
-                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-                datasets: [{
-                    label: 'Seu saldo',
-                    data: [12, 19, 3, 5],
+    type: 'line',
+    data: {
+        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+        datasets: [{
+            label: 'Seu saldo',
+            data: [12, 19, 3, 5],
 
-                    borderColor: '#f7f7f7',
-                    pointBackgroundColor: '#f7f7f7',
-                    borderWidth: 2,
+            borderColor: '#f7f7f7',
+            pointBackgroundColor: '#f7f7f7',
+            borderWidth: 2,
+            borderDash: [1000, 1000],
+            borderDashOffset: 1000
 
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
 
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+        animation: {
+            duration: 2000,
+            easing: 'easeInOutCubic'
+        },
+
+        animations: {
+            borderDashOffset: {
+                from: 1000,
+                to: 0,
+                duration: 2000,
+                easing: 'easeInOutCubic'
             }
+        },
+
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+
 
 
 
@@ -180,16 +197,7 @@ export default function Home() {
                 <section className="home-section">
                     <div className="home-header">
 
-                        <span className="home-badge">Dashboard</span>
-
-                        <h1>Bem-vindo ao MyDashboard</h1>
-
-                        <p>
-                            Acompanhe suas informações, métricas e atividades em um só lugar.
-                        </p>
-
-
-
+                        <span className="home-badge">Dashboard - visão geral</span>
 
                     </div>
 

@@ -18,16 +18,14 @@ import "./Navbar.css";
 
 // ─── Dados de navegação ───────────────────────────────────────────────────────
 const NAV_ITEMS = [
-  { label: "Visão Geral",    icon: LayoutDashboard, href: "#" },
-  { label: "Analytics",   icon: BarChart2,        href: "#" },
-  { label: "Investimentos",icon: TrendingUp,       href: "#" },
-  { label: "Relatórios",  icon: FileText,         href: "#" },
-  { label: "Configurações",icon: Settings,         href: "#" },
+  { label: "Visão Geral",    icon: LayoutDashboard, href: "/home" },
+  { label: "Analytics",   icon: BarChart2,        href: "/Analytics" },
+  { label: "Investimentos",icon: TrendingUp,       href: "/investimentos" },
+  { label: "Planejamentos",  icon: FileText,         href: "/planejamentos" },
+  { label: "Projetos",icon: Settings,         href: "/projetos" },
 ];
 
-// ─── Variantes Framer Motion ──────────────────────────────────────────────────
 
-/** Entrada da navbar — fade + slide de cima */
 const navbarVariants = {
   hidden:  { opacity: 0, y: -18 },
   visible: {
